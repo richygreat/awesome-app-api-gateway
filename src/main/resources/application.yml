@@ -1,0 +1,11 @@
+internal.lb.uri: http://localhost
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-microservice
+          uri: ${internal.lb.uri}:8081
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<path>.*), /$\{path}
